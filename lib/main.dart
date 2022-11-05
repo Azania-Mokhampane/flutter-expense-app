@@ -1,65 +1,54 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+import './question.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MyAppState(); // the underscore means the class in a private, it can'y be used in other files
+  }
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class _MyAppState extends State<MyApp> {
+  int _questionIndex = 0;
+  void _answerQuestion() => setState(
+        () => _questionIndex += 1,
+      );
 
-  @override
+  @override //decorader
   Widget build(BuildContext context) {
+    var questions = <String>[
+      'Are you a developer?',
+      'What is your experience level?',
+    ];
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Quiz App"),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        body: Column(children: [
+          Question(
+            questionText: questions[_questionIndex],
+          ),
+          ElevatedButton(
+            child: Text("Question 1"),
+            onPressed: () {
+              setState(() => _questionIndex = 0);
+            },
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.black)),
+          ),
+          ElevatedButton(
+            child: Text("Question 2"),
+            onPressed: _answerQuestion,
+          ),
+          ElevatedButton(
+            child: Text("Anser 3"),
+            onPressed: _answerQuestion,
+          ),
+        ]),
       ),
     );
   }
