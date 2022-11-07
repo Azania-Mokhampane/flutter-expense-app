@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class Answer extends StatelessWidget {
   final String answerName;
+  final Function onPressed;
 
-  Answer({this.answerName});
+  Answer({this.answerName, this.onPressed});
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       child: ElevatedButton(
-        child: Text("Question 1"),
-        onPressed: () => null,
+        child: Text(answerName),
+        onPressed: onPressed,
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.black)),
+            backgroundColor: MaterialStateProperty.all(Colors.blue)),
       ),
     );
   }
