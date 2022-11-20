@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import 'transaction.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,84 +13,59 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List<Transaction> transactions = [
-    Transaction(
-      id: "1",
-      title: "Samsung A32",
-      amount: 4299.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: "2",
-      title: "Macbook Air",
-      amount: 18999.99,
-      date: DateTime.now(),
-    ),
+  static const questions = [
+    {
+      'question': 'What is your favorite color?',
+      'answer': [
+        {'text': 'redd', 'score': 5},
+        {'text': 'blue', 'score': 3},
+        {'text': 'gray', 'score': 8}
+      ]
+    },
+    {
+      'question': 'What is your favorite animal?',
+      'answer': [
+        {'text': 'rabbit', 'score': 2},
+        {'text': 'dog', 'score': 9},
+        {'text': 'fish', 'score': 5}
+      ]
+    },
   ];
-  @override
+
+  int _questionIndex = 0;
+  int _totalScore = 0;
+
+  void _answerQuestion(int score) {
+    _totalScore += score;
+
+    print(_totalScore);
+    setState(() {
+      _questionIndex += 1;
+    });
+  }
+
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  @override //decorader
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text("Expense App"),
-          ),
-          body: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                child: Card(
-                  child: Center(
-                    child: Text("CHART!!"),
-                  ),
-                ),
-              ),
-              Column(
-                children: transactions.map((transaction) {
-                  return Card(
-                    child: Row(children: [
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.blue,
-                            style: BorderStyle.solid,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          'R${transaction.amount}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            transaction.title,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            DateFormat().format(transaction.date),
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          )
-                        ],
-                      )
-                    ]),
-                  );
-                }).toList(),
+        appBar: AppBar(
+          title: Text("Quiz App"),
+        ),
+        body: _questionIndex < questions.length
+            ? Quiz(
+                questions: questions,
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
               )
-            ],
-          )),
+            : Result(score: _totalScore, onReset: _resetQuiz),
+      ),
     );
   }
 }
