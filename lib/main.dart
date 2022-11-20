@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import './question.dart';
+import 'transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,44 +13,84 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _questionIndex = 0;
-  void _answerQuestion() => setState(
-        () => _questionIndex += 1,
-      );
-
-  @override //decorader
+  final List<Transaction> transactions = [
+    Transaction(
+      id: "1",
+      title: "Samsung A32",
+      amount: 4299.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "2",
+      title: "Macbook Air",
+      amount: 18999.99,
+      date: DateTime.now(),
+    ),
+  ];
+  @override
   Widget build(BuildContext context) {
-    var questions = <String>[
-      'Are you a developer?',
-      'What is your experience level?',
-    ];
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Quiz App"),
-        ),
-        body: Column(children: [
-          Question(
-            questionText: questions[_questionIndex],
+          appBar: AppBar(
+            title: Text("Expense App"),
           ),
-          ElevatedButton(
-            child: Text("Question 1"),
-            onPressed: () {
-              setState(() => _questionIndex = 0);
-            },
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.black)),
-          ),
-          ElevatedButton(
-            child: Text("Question 2"),
-            onPressed: _answerQuestion,
-          ),
-          ElevatedButton(
-            child: Text("Anser 3"),
-            onPressed: _answerQuestion,
-          ),
-        ]),
-      ),
+          body: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                child: Card(
+                  child: Center(
+                    child: Text("CHART!!"),
+                  ),
+                ),
+              ),
+              Column(
+                children: transactions.map((transaction) {
+                  return Card(
+                    child: Row(children: [
+                      Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.blue,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          'R${transaction.amount}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            transaction.title,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            DateFormat().format(transaction.date),
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          )
+                        ],
+                      )
+                    ]),
+                  );
+                }).toList(),
+              )
+            ],
+          )),
     );
   }
 }
