@@ -42,6 +42,29 @@ class _MyAppState extends State<MyApp> {
                   child: Center(
                     child: Text("CHART!!"),
                   ),
+                  elevation: 5,
+                ),
+              ),
+              Card(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: "Title",
+                        ),
+                      ),
+                      TextField(
+                        decoration: InputDecoration(labelText: "Amount"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text("Add Expense"),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Column(
@@ -78,7 +101,7 @@ class _MyAppState extends State<MyApp> {
                             ),
                           ),
                           Text(
-                            DateFormat().format(transaction.date),
+                            DateFormat.yMMMd().format(transaction.date),
                             style: TextStyle(
                               color: Colors.grey,
                             ),
