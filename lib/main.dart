@@ -9,23 +9,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text("Expense App"),
-          ),
-          body: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                child: Card(
-                  child: Center(
-                    child: Text("CHART!!"),
-                  ),
-                  elevation: 5,
+        appBar: AppBar(
+          title: Text("Expense App"),
+        ),
+        body: ListView(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Card(
+                child: Center(
+                  child: Text("CHART!!"),
                 ),
+                elevation: 5,
               ),
-              UserTransactions()
-            ],
-          )),
+            ),
+            UserTransactions()
+          ],
+        ),
+      ),
     );
   }
 }
