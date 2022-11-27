@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import 'models/transaction.dart';
@@ -25,18 +23,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [
-    Transaction(
-      id: "1",
-      title: "Test 1",
-      amount: 99.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: "2",
-      title: "Test 2",
-      amount: 19.99,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: "1",
+    //   title: "Test 1",
+    //   amount: 99.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: "2",
+    //   title: "Test 2",
+    //   amount: 19.99,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addTransaction(String title, double amount) {
@@ -81,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 // _startAddNewTransaction(context);
               },
-            )
+            ),
           ],
         ),
         body: SingleChildScrollView(
