@@ -80,15 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Chart(_recentTtransactions),
-              TransactionList(
-                transactions: transactions,
-              )
-            ],
-          ),
+        body: Column(
+          children: [
+            Chart(_recentTtransactions),
+            TransactionList(
+              transactions: transactions,
+            )
+          ],
         ),
         floatingActionButton: Builder(
           builder: (context) => FloatingActionButton(
