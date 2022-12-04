@@ -23,10 +23,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> transactions = [];
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recentTtransactions {
-    return transactions.where((transaction) {
+    return _transactions.where((transaction) {
       return transaction.date.isAfter(
         DateTime.now().subtract(
           Duration(days: 7),
@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     setState(() {
-      transactions.add(newTrasaction);
+      _transactions.add(newTrasaction);
     });
   }
 
@@ -61,6 +61,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((transaction) => transaction.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -75,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 size: 30,
               ),
               onPressed: () {
-                // _startAddNewTransaction(context);
+                _startAddNewTransaction(context);
               },
             ),
           ],
@@ -84,7 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Chart(_recentTtransactions),
             TransactionList(
-              transactions: transactions,
+              transactions: _transactions,
+              deleteTransaction: _deleteTransaction,
             )
           ],
         ),
