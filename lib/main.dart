@@ -69,41 +69,55 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Expense App"),
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.add,
-                size: 30,
-              ),
-              onPressed: () {
-                _startAddNewTransaction(context);
-              },
-            ),
-          ],
+    final appBar = AppBar(
+      title: Text("Expense App"),
+      actions: [
+        IconButton(
+          icon: Icon(
+            Icons.add,
+            size: 30,
+          ),
+          onPressed: () {
+            _startAddNewTransaction(context);
+          },
         ),
-        body: Column(
-          children: [
-            Chart(_recentTtransactions),
-            TransactionList(
+      ],
+    );
+    return Scaffold(
+      appBar: appBar,
+      body: Column(
+        children: [
+          Container(
+              height: _transactions.isNotEmpty
+                  ? (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.3
+                  : (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.1,
+              child: Chart(_recentTtransactions)),
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    appBar.preferredSize.height -
+                    MediaQuery.of(context).padding.top) *
+                0.7,
+            child: TransactionList(
               transactions: _transactions,
               deleteTransaction: _deleteTransaction,
-            )
-          ],
-        ),
-        floatingActionButton: Builder(
-          builder: (context) => FloatingActionButton(
-            child: Icon(
-              Icons.add,
             ),
-            onPressed: () {
-              _startAddNewTransaction(context);
-            },
+          )
+        ],
+      ),
+      floatingActionButton: Builder(
+        builder: (context) => FloatingActionButton(
+          child: Icon(
+            Icons.add,
           ),
+          onPressed: () {
+            _startAddNewTransaction(context);
+          },
         ),
       ),
     );
