@@ -15,6 +15,10 @@ class TransactionList extends StatelessWidget {
         ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                "No transactions added yet!",
+                style: TextStyle(fontSize: 20),
+              ),
               Image.asset(
                 'assets/images/no_expenses.png',
                 fit: BoxFit.cover,
@@ -22,10 +26,6 @@ class TransactionList extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Text(
-                "No transactions added yet!",
-                style: TextStyle(fontSize: 20),
-              )
             ],
           )
         : ListView.builder(
@@ -53,13 +53,20 @@ class TransactionList extends StatelessWidget {
                     DateFormat.yMMMd().format(transactions[index].date),
                     style: TextStyle(color: Colors.grey, fontSize: 15),
                   ),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    color: Colors.red,
-                    onPressed: () {
-                      deleteTransaction(transactions[index].id);
-                    },
-                  ),
+                  trailing: MediaQuery.of(context).size.width > 450
+                      ? ElevatedButton.icon(
+                          onPressed: () {
+                            deleteTransaction(transactions[index].id);
+                          },
+                          icon: Icon(Icons.delete),
+                          label: Text("Delete"))
+                      : IconButton(
+                          icon: Icon(Icons.delete),
+                          color: Colors.red,
+                          onPressed: () {
+                            deleteTransaction(transactions[index].id);
+                          },
+                        ),
                 ),
               );
             },
