@@ -39,42 +39,40 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return recentTransactions.length != 0
-        ? Card(
-            elevation: 6,
-            margin: EdgeInsets.all(20),
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Text(
-                    "Expenses in the last 7 days",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.italic),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: groupedTransactionValues.map((item) {
-                      return Flexible(
-                        child: ChartBar(
-                          day: item['day'],
-                          amountSpent: item['amount'],
-                          amountSpentPct: totalSpending == 0.0
-                              ? 0.0
-                              : (item['amount'] as double) / totalSpending,
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ),
+    return Card(
+      elevation: 6,
+      margin: EdgeInsets.all(20),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Text(
+              "Expenses in the last 7 days",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.italic),
             ),
-          )
-        : Text("");
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: groupedTransactionValues.map((item) {
+                return Flexible(
+                  child: ChartBar(
+                    day: item['day'],
+                    amountSpent: item['amount'],
+                    amountSpentPct: totalSpending == 0.0
+                        ? 0.0
+                        : (item['amount'] as double) / totalSpending,
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

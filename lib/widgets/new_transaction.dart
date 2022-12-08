@@ -49,51 +49,58 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: "Title",
-              ),
-              controller: _titleController,
-              onSubmitted: (_) => _submitHandler(),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: "Amount"),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitHandler(),
-              // onChanged: (value) => amountInput = value,
-            ),
-            Container(
-              height: 70,
-              child: Row(children: [
-                Expanded(
-                  child: Text(
-                    _selectedDate == null
-                        ? "No date chosen!"
-                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
-                    style: TextStyle(),
-                  ),
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  labelText: "Title",
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                controller: _titleController,
+                onSubmitted: (_) => _submitHandler(),
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: "Amount"),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitHandler(),
+                // onChanged: (value) => amountInput = value,
+              ),
+              Container(
+                height: 70,
+                child: Row(children: [
+                  Expanded(
+                    child: Text(
+                      _selectedDate == null
+                          ? "No date chosen!"
+                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                      style: TextStyle(),
+                    ),
                   ),
-                  child: Text("Choose Date"),
-                  onPressed: _presentDatePicker,
-                )
-              ]),
-            ),
-            ElevatedButton(
-              onPressed: _submitHandler,
-              child: Text("Add Expense"),
-            ),
-          ],
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: Text("Choose Date"),
+                    onPressed: _presentDatePicker,
+                  )
+                ]),
+              ),
+              ElevatedButton(
+                onPressed: _submitHandler,
+                child: Text("Add Expense"),
+              ),
+            ],
+          ),
         ),
       ),
     );
